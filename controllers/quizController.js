@@ -10,6 +10,7 @@ exports.getAllQuizzes = async (req, res) => {
     }
 };
 
+
 exports.getQuizById = async (req, res) => {
     const { quizId } = req.params;
 
@@ -60,6 +61,7 @@ exports.deleteQuiz = async (req, res) => {
       res.status(500).json({ message: err.message });
   }
 };
+
 
 
 

@@ -8,4 +8,4 @@ const questionSchema = new mongoose.Schema({
     correctAnswerIndex: { type: Number, required: true },
 });
 
-module.exports = mongoose.model('Question', questionSchema);
+module.exports = mongoose.model('Question', questionSchema, 'question');

@@ -17,6 +17,9 @@ app.use(bodyParser.json());
 app.use("/quizzes", quizRoutes);
 app.use("/questions", questionRoutes);
 
+const Question = require('./models/questionModel'); // Điều chỉnh đường dẫn nếu cần
+
+
 
 app.listen(PORT, () => {
   console.log(`App listening at http://localhost:${PORT}`);
