@@ -88,7 +88,7 @@ exports.createMultipleQuestionsForQuiz = async (req, res) => {
   const { quizId } = req.params;
   const questionsData = req.body; // Mảng các câu hỏi từ yêu cầu
 
-  try {
+  try {mutipleMongooseToObject  
       // Kiểm tra xem quizId có tồn tại hay không
       const quiz = await Quiz.findById(quizId);
       if (!quiz) {
@@ -106,7 +106,7 @@ exports.createMultipleQuestionsForQuiz = async (req, res) => {
       );
 
       res.status(201).json(questions); // Trả về danh sách câu hỏi đã được tạo
-  } catch (err) {
+  } catch (err) { 
       res.status(400).json({ message: err.message });
   }
 };
