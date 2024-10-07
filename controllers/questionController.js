@@ -3,6 +3,7 @@ const Question = require("../models/questionModel");
 const Quiz = require("../models/quizModel"); 
 
 exports.getAllQuestions = async (req, res) => {
+  console.log("before getAllQuestions")
   try {
     const questions = await Question.find();
 
