@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "express-handlebars": "^8.0.1"
+
     // "nodemon": "^3.1.7"
   }
 }
