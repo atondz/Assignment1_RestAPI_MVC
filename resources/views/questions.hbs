@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questions</title>
+    <link rel="stylesheet" href="/css/question.css"> <!-- Thêm đường dẫn CSS nếu có -->
+</head>
+<body>
+    <main>
+        <h1>All Questions</h1>
+
+        <hr>
+     
+        <button type="button" class="btn btn-success">
+            <a href="/questions/new">Add New Question</a>
+        </button>
+        {{#if message}}
+        <div class="alert">{{message}}</div>
+        {{/if}}
+        <ul>
+            {{#each questions}}
+            <li data-id="{{this._id}}"> <!-- Thêm data-id để lấy ID câu hỏi -->
+                <p>{{this.text}}</p>
+                <div>
+                    <button type="button" class="delete-btn">Delete</button>
+                </div>
+            </li>
+            {{/each}}
+        </ul>
+
+    </main>
+
+    <script>
+      // Xử lý sự kiện cho nút xóa
+ 
+
+
+      document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', async function() {
+          const questionElement = this.closest('li');
+         console.assert(questionElement)
+          const questionId = questionElement.getAttribute('data-id'); 
+          console.log('Deleting question with ID:', questionId); // In ra ID câu hỏi để xác nhận xóa
+
+          if (confirm('Are you sure you want to delete this question?')) {
+            try {
+                console.log('Deleting question with ID:', questionId); // In ra ID câu hỏi để xác nhận xóa
+
+              const response = await fetch(`/questions/${questionId}`, {
+                method: 'DELETE',
+              });
+         
+              if (response.ok) {
+                questionElement.remove(); // Xóa phần tử <li> khỏi giao diện sau khi thành công
+              } else {
+                alert('Failed to delete question');
+              }
+            } catch (err) {
+              console.error('Error:', err);
+              alert('Error deleting question');
+            }
+          }
+        });
+      });
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Question</title>
+    <link rel="stylesheet" href="/css/newQuizzes.css">
+</head>
+<body>
+<form action="/questions/" method="POST"> <!-- Sử dụng đúng đường dẫn POST -->
+    <div>
+        <h1>Create New Question</h1>
+        <div class="mb-3">
+            <label for="exampleInputTitle" class="form-label">Question Text</label>
+            <input type="text" class="form-control" id="exampleInputTitle" name="text" aria-describedby="titleHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputTitle" class="form-label">Options (comma separeted)</label>
+            <input type="text" class="form-control" id="exampleInputTitle" name="options" aria-describedby="titleHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputTitle" class="form-label">Correct answer index</label>
+            <input type="text" class="form-control" id="exampleInputTitle" name="correctAnswerIndex" aria-describedby="titleHelp" required>
+        </div>
+        
+        
+        <button type="submit" class="btn btn-primary" >Create</button>
+    </div>
+
+</form>
+
+</body>
+</html>
+

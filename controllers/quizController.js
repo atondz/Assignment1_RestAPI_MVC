@@ -8,7 +8,7 @@ exports.createNewQuizzUI = (req, res) => {
 };
 
 exports.getAllQuizzes = async (req, res) => {
-  console.log("Fetching all users..."); // Xem có in ra không
+  console.log("Fetching all quizz..."); // Xem có in ra không
   try {
     console.log("Before database call");
     const quizzes = await Quiz.find().lean();
