@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh sách Quiz</title>
+    <link rel="stylesheet" href="/css/newQuizzes.css">
+</head>
+<body>
+<form action="/quizzes/" method="POST"> <!-- Sử dụng đúng đường dẫn POST -->
+    <div>
+        <h1>Create New Quizzes</h1>
+        <div class="mb-3">
+            <label for="exampleInputTitle" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="exampleInputTitle" name="title" aria-describedby="titleHelp" required>
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputDescription" class="form-label">Description:</label>
+            <textarea class="form-control" id="exampleInputDescription" name="description" rows="4" required></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary" >Create</button>
+    </div>
+
+</form>
+
+</body>
+</html>
+

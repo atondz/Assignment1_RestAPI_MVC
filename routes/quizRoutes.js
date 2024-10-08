@@ -4,7 +4,9 @@ const router = express.Router();
 const quizController = require("../controllers/quizController");
 const questionController = require("../controllers/questionController");
 
-router.get("/", quizController.getAllQuizzes);               // Lấy tất cả quizzes
+ 
+router.get("/", quizController.getAllQuizzes);     // Lấy tất cả quizzes 
+router.get("/new", quizController.createNewQuizzUI);
 router.get("/:quizId", quizController.getQuizById);         // Lấy quiz theo ID
 router.post("/", quizController.createQuiz);                 // Tạo quiz mới
 router.put("/:quizId", quizController.updateQuiz);           // Cập nhật quiz theo ID

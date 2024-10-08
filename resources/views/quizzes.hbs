@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Danh sách Quiz</title>
+    <link rel="stylesheet" href="/css/quizzes.css" />
+  </head>
+  <body>
+    <main>
+      <h2>Quizzes</h2>
+      {{#if message}}
+        <div class="alert">{{message}}</div>
+      {{/if}}
+      <ul>
+        {{#each quizzes}}
+          <li data-id="{{this._id}}">
+            <div>
+              <h3>{{this.title}}</h3>
+              <p>{{this.description}}</p>
+            </div>
+            <button type="button" class="delete-btn">Delete</button>
+          </li>
+        {{/each}}
+      </ul>
+
+      <button type="button" class="btn btn-success">
+        <a href="/quizzes/new">Create new quizzes</a>
+      </button>
+    </main>
+
+    <script>
+      document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', async function() {
+          const quizElement = this.closest('li');
+          const quizId = quizElement.getAttribute('data-id');
+
+          if (confirm('Are you sure you want to delete this quiz?')) {
+            try {
+              const response = await fetch(`/quizzes/${quizId}`, {
+                method: 'DELETE',
+              });
+
+              if (response.ok) {
+                quizElement.remove(); // Xóa phần tử <li> khỏi giao diện sau khi thành công
+              } else {
+                alert('Failed to delete quiz');
+              }
+            } catch (err) {
+              console.error('Error:', err);
+              alert('Error deleting quiz');
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
