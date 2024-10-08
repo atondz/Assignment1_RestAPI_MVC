@@ -16,7 +16,7 @@
     "mongoose": "^8.7.0"
   },
   "devDependencies": {
-    "express-handlebars": "^8.0.1",
-    "nodemon": "^3.1.7"
+    "express-handlebars": "^8.0.1"
+    // "nodemon": "^3.1.7"
   }
 }
