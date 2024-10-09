@@ -37,19 +37,9 @@ exports.createQuestion = async (req, res) => {
   });
   try {
     const newQuestion = await question.save();
-    const questions = await Question.find();
-    const sanitizedQuestions = questions.map((question) => ({
-      id: question._id,
-      text: question.text,
-      options: question.options,
-      keywords: question.keywords,
-      correctAnswerIndex: question.correctAnswerIndex,
-    }));
-
-    res.render("questions", {
-      message: "Quiz created successfully!",
-      questions: sanitizedQuestions,
-    });
+      res.render("questions", {
+      message: "Quiz created successfully!", question   });
+ 
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -75,10 +65,9 @@ exports.updateQuestion = async (req, res) => {
 
 // DELETE: Xóa câu hỏi
 
-exports.deleteQuestion = async (req, res) => {
+exports.deleteQuestion = async (req, res,next) => {
   const { id } = req.params;
   console.log("Deleting question with ID:", id); // Kiểm tra ID nhận từ client
-
   try {
     const deletedQuestion = await Question.findByIdAndDelete(id);
     if (!deletedQuestion) {

@@ -20,7 +20,7 @@
         {{/if}}
         <ul>
             {{#each questions}}
-            <li data-id="{{this._id}}"> <!-- Thêm data-id để lấy ID câu hỏi -->
+            <li data-id="{{this.id}}"> <!-- Thêm data-id để lấy ID câu hỏi -->
                 <p>{{this.text}}</p>
                 <div>
                     <button type="button" class="delete-btn">Delete</button>
@@ -33,9 +33,6 @@
 
     <script>
       // Xử lý sự kiện cho nút xóa
- 
-
-
       document.querySelectorAll('.delete-btn').forEach(button => {
         button.addEventListener('click', async function() {
           const questionElement = this.closest('li');
