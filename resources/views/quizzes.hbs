@@ -24,7 +24,7 @@
         {{#each quizzes}}
           <li data-id="{{this._id}}">
             <div>
-              <h3>{{this.title}}</h3>
+              <a href="/quizzes/change"><h3>{{this.title}}</h3></a>
               <p>{{this.description}}</p>
             </div>
             <button type="button" class="delete-btn">Delete</button>
@@ -50,7 +50,9 @@
               if (response.ok) {
                 quizElement.remove(); // Xóa phần tử <li> khỏi giao diện sau khi thành công
               } else {
-                alert('Failed to delete quiz');
+                 const errorData = await response.json(); // Đọc dữ liệu lỗi từ phản hồi
+               console.error('Error details:', errorData); // In ra lỗi
+                    alert(`Failed to update quiz: ${errorData.message}`);
               }
             } catch (err) {
               console.error('Error:', err);

@@ -37,9 +37,19 @@ exports.createQuestion = async (req, res) => {
   });
   try {
     const newQuestion = await question.save();
-      res.render("questions", {
-      message: "Quiz created successfully!", question   });
- 
+    const questions = await Question.find();
+    const sanitizedQuestions = questions.map((question) => ({
+      id: question._id,
+      text: question.text,
+      options: question.options,
+      keywords: question.keywords,
+      correctAnswerIndex: question.correctAnswerIndex,
+    }));
+
+    res.render("questions", {
+      message: "Quiz created successfully!",
+      questions: sanitizedQuestions,
+    });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }

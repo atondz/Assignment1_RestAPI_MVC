@@ -6,7 +6,9 @@ const Quiz = require("../models/quizModel");
 exports.createNewQuizzUI = (req, res) => {
   res.render("newQuizzes");
 };
-
+exports.UpdateQuizzUI = (req, res) => {
+  res.render("updateQuizzes");
+};
 exports.getAllQuizzes = async (req, res) => {
   console.log("Fetching all quizz..."); // Xem có in ra không
   try {
@@ -51,6 +53,7 @@ exports.createQuiz = async (req, res) => {
   }
 };
 // PUT: Cập nhật quiz
+
 exports.updateQuiz = async (req, res) => {
   const { quizId } = req.params;
   const updates = req.body;
@@ -59,6 +62,7 @@ exports.updateQuiz = async (req, res) => {
     const updatedQuiz = await Quiz.findByIdAndUpdate(quizId, updates, {
       new: true,
     });
+    
     if (!updatedQuiz)
       return res.status(404).json({ message: "Quiz not found" });
     res.json(updatedQuiz);
