@@ -7,58 +7,57 @@
     <link rel="stylesheet" href="/css/newQuizzes.css">
 </head>
 <body>
-  
-    <form action="/{{quiz._id}}" method="PUT" id="updateForm"> <!-- Đường dẫn sẽ trỏ tới quiz cụ thể -->
-        
-            <h1>Update Quiz</h1>
-            <div class="mb-3">
-                <label for="exampleInputTitle" class="form-label">Title:</label>
-                <input type="text" class="form-control" id="exampleInputTitle" name="title" value="{{quiz.title}}" required>
-            </div>
-            <div class="mb-3">
-                <label for="exampleInputDescription" class="form-label">Description:</label>
-                <textarea class="form-control" id="exampleInputDescription" name="description" rows="4" required>{{quiz.description}}</textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+    <form id="updateForm">
+        <h1>Update Quiz</h1>
+
+        <div class="mb-3">
+            <label for="title" class="form-label">Title:</label>
+            <input type="text" class="form-control" id="title" name="title" 
+                   value="{{quiz.title}}" required>   
         </div>
+
+        <div class="mb-3">
+            <label for="description" class="form-label">Description:</label>
+            <textarea class="form-control" id="description" name="description" 
+                      rows="4" required>{{quiz.description}}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
     </form>
 
+    <script>
+        const form = document.getElementById('updateForm');
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault(); // Ngăn trình duyệt reload
 
+            const formData = new FormData(form);
+            const quizData = {
+                title: formData.get('title'),
+                description: formData.get('description')
+            };
 
-<script>
-  const form = document.getElementById('updateForm');
-  form.addEventListener('submit', async function (event) {
-    event.preventDefault();
-    
-    const formData = new FormData(form);
-    const quizData = {
-      title: formData.get('title'),
-      description: formData.get('description')
-    };
-    
-    const quizId = "{{quiz._id}}"; // ID của quiz cần cập nhật
-    console.log(quizId);
-    try {
-      const response = await fetch(`/quizzes/${quizId}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(quizData)
-      });
+            const quizId = "{{quiz._id}}"; // ID của quiz cần cập nhật
 
-      if (response.ok) {
-        alert('Quiz updated successfully');
-        window.location.href = '/quizzes'; // Điều hướng lại danh sách quiz
-      } else {
-        alert('Failed to update quiz');
-      }
-    } catch (err) {
-      console.error('Error:', err);
-      alert('Error updating quiz');
-    }
-  });
-</script>
+            try {
+                const response = await fetch(`/quizzes/${quizId}`, {
+                    method: 'PUT', // Sử dụng PUT để cập nhật
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(quizData)
+                });
+
+                if (response.ok) {
+                    alert('Quiz updated successfully');
+                    window.location.href = '/quizzes'; // Chuyển hướng về danh sách quiz
+                } else {
+                    alert('Failed to update quiz');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error updating quiz');
+            }
+        });
+    </script>
 </body>
 </html>
-

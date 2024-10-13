@@ -16,12 +16,13 @@ router.put("/:quizId", quizController.updateQuiz);  // Cập nhật quiz theo ID
 router.delete("/:quizId", quizController.deleteQuiz); 
 
 //UI
-router.get("/:quizId/update", quizController.UpdateQuizzUI);  
+router.get("/:quizId/update", quizController.getQuizById);     
 router.get("/new", quizController.createNewQuizzUI);        
 
 // API
 router.post("/:quizId/question", questionController.createQuestionForQuiz);
 router.post("/:quizId/questions", questionController.createMultipleQuestionsForQuiz);
-router.get("/:quizId/populate", quizController.populateQuestionsWithKeyword); // Thêm endpoint mới
+router.get("/:quizId/populate", quizController.populateQuestionsWithKeyword); 
+
 
 module.exports = router;

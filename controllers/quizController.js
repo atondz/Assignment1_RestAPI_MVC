@@ -21,17 +21,40 @@ exports.getAllQuizzes = async (req, res) => {
 };
 
 // [GET]
+// exports.getQuizById = async (req, res) => {
+//   const { quizId } = req.params;
+//   console.log("Fetching quiz with id: " + quizId); 
+//   try {
+//     const quiz = await Quiz.findById(quizId).populate('questions');
+//     if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
+    
+//     res.render('updateQuizzes', { quiz }); // Render giao diện với dữ liệu quiz
+     
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
 exports.getQuizById = async (req, res) => {
   const { quizId } = req.params;
+  console.log("Fetching quiz with id: " + quizId);
 
   try {
-    const quiz = await Quiz.findById(quizId).populate("questions");
-    if (!quiz) return res.status(404).json({ message: "Quiz not found" });
-    res.json(quiz);
+    const quiz = await Quiz.findById(quizId).populate('questions');
+    if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
+
+    // Sao chép dữ liệu quiz sang một đối tượng mới
+    const quizData = {
+      _id: quiz._id.toString(),
+      title: quiz.title,
+      description: quiz.description
+    };
+
+    res.render('updateQuizzes', { quiz: quizData });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
 //[POST]
 exports.createQuiz = async (req, res) => {
   console.log(req.body); // Xem có in ra không
@@ -54,26 +77,45 @@ exports.createQuiz = async (req, res) => {
 };
 // PUT: Cập nhật quiz
 
-exports.updateQuiz = async (req, res) => {
-  const { quizId } = req.params;  // Lấy quizId từ URL
-  const updates = req.body;  // Dữ liệu cập nhật từ client (form)
+// exports.updateQuiz = async (req, res) => {
+//   const { quizId } = req.params;  // Lấy quizId từ URL
+//   const updates = req.body;  // Dữ liệu cập nhật từ client (form)
 
-  console.log("Cập nhật quiz với id: " + quizId);
+//   console.log("Cập nhật quiz với id: " + quizId);
   
-  try {
-    const updatedQuiz = await Quiz.findByIdAndUpdate(quizId, updates, {
-      new: true,  // Tùy chọn này trả về quiz sau khi đã được cập nhật
-    });
+//   try {
+//     const updatedQuiz = await Quiz.findByIdAndUpdate(quizId, updates, {
+//       new: true,  // Tùy chọn này trả về quiz sau khi đã được cập nhật
+//     });
     
-    if (!updatedQuiz)
-      return res.status(404).json({ message: "Quiz not found" });  // Quiz không tồn tại
+//     if (!updatedQuiz)
+//       return res.status(404).json({ message: "Quiz not found" });  // Quiz không tồn tại
 
-    res.json(updatedQuiz);  // Trả về quiz đã cập nhật
+//     res.json(updatedQuiz);  // Trả về quiz đã cập nhật
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });  // Xử lý lỗi
+//   }
+// };
+
+// [PUT] - Cập nhật quiz
+exports.updateQuiz = async (req, res) => {
+  const { quizId } = req.params;
+  const { title, description } = req.body;
+  console.log("Updating quiz with id: " + quizId); // Debug xem có cập nhật được không
+
+  try {
+    const quiz = await Quiz.findByIdAndUpdate(
+      quizId,
+      { title, description },
+      { new: true } // Trả về bản ghi đã cập nhật
+    );
+    if (!quiz) return res.status(404).json({ message: 'Quiz not found' });
+
+    res.json({ message: 'Quiz updated successfully', quiz });
   } catch (err) {
-    res.status(500).json({ message: err.message });  // Xử lý lỗi
+    res.status(500).json({ message: err.message });
   }
 };
-
 // DELETE: Xóa quiz
 exports.deleteQuiz = async (req, res) => {
   const { quizId } = req.params;
