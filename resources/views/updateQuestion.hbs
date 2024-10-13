@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="/css/newQuizzes.css">
 </head>
 <body>
-    <form id="updateQuestionForm" action="/questions/">
+    <form id="updateQuestionForm">
         <h1>Update Question</h1>
 
         <div class="mb-3">
@@ -40,10 +40,12 @@
             
             // Sao chép dữ liệu question sang đối tượng mới
             const updatedQuestion = {
-                text: formData.get('text'),
-                options: formData.get('options').split(',').map(opt => opt.trim()), // Tách và xóa khoảng trắng
-                correctAnswerIndex: parseInt(formData.get('correctAnswerIndex'))
-            };
+              text: formData.get('text'),
+               options: formData.get('options').split(','),  // Tách chuỗi thành mảng
+                  correctAnswerIndex: parseInt(formData.get('correctAnswerIndex')),  // Chuyển thành số
+               };
+
+             console.log('Updated Question:', updatedQuestion);
 
             const questionId = "{{questionData._id}}"; // Lấy ID của câu hỏi cần cập nhật
 

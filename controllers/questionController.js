@@ -97,12 +97,12 @@ exports.getQuestionById = async (req, res) => {
 exports.updateQuestion = async (req, res) => {
   const { questionId } = req.params;
   const { text, options, correctAnswerIndex } = req.body;
-
+   console.log("this id we use: "+questionId);
   try {
       const question = await Question.findByIdAndUpdate(
           questionId,
-          { text, options: options.split(',').map(opt => opt.trim()), correctAnswerIndex },
-          { new: true }
+          { text, options, correctAnswerIndex },
+      { new: true }  
       );
 
       if (!question) return res.status(404).json({ message: 'Question not found' });

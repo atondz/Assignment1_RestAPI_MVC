@@ -11,7 +11,7 @@ router.get("/", quizController.getAllQuizzes);     // Lấy tất cả quizzes
 
          // Lấy quiz theo ID
 router.post("/", quizController.createQuiz);                 // Tạo quiz mới
-router.put("/:quizId", quizController.updateQuiz);  // Cập nhật quiz theo ID
+router.put("/:quizId", quizController.updateQuiz);// Cập nhật quiz theo ID
    
 router.delete("/:quizId", quizController.deleteQuiz); 
 
