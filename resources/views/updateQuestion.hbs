@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Question</title>
+    <link rel="stylesheet" href="/css/newQuizzes.css">
+</head>
+<body>
+    <form id="updateQuestionForm" action="/questions/">
+        <h1>Update Question</h1>
+
+        <div class="mb-3">
+            <label for="questionText" class="form-label">Question Text:</label>
+            <input type="text" class="form-control" id="questionText" name="text" 
+                   value="{{questionData.text}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="options" class="form-label">Options (comma separated):</label>
+            <input type="text" class="form-control" id="options" name="options" 
+                   value="{{questionData.options}}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="correctAnswerIndex" class="form-label">Correct Answer Index:</label>
+            <input type="number" class="form-control" id="correctAnswerIndex" 
+                   name="correctAnswerIndex" value="{{questionData.correctAnswerIndex}}" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+
+    <script>
+        const form = document.getElementById('updateQuestionForm');
+        form.addEventListener('submit', async function (event) {
+            event.preventDefault(); // Ngăn trình duyệt reload trang
+
+            const formData = new FormData(form);
+            
+            // Sao chép dữ liệu question sang đối tượng mới
+            const updatedQuestion = {
+                text: formData.get('text'),
+                options: formData.get('options').split(',').map(opt => opt.trim()), // Tách và xóa khoảng trắng
+                correctAnswerIndex: parseInt(formData.get('correctAnswerIndex'))
+            };
+
+            const questionId = "{{questionData._id}}"; // Lấy ID của câu hỏi cần cập nhật
+
+            try {
+                const response = await fetch(`/questions/${questionId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedQuestion)
+                });
+
+                if (response.ok) {
+                    alert('Question updated successfully');
+                    window.location.href = '/questions'; // Điều hướng lại danh sách câu hỏi
+                } else {
+                    alert('Failed to update question');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error updating question');
+            }
+        });
+    </script>
+</body>
+</html>

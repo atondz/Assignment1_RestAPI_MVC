@@ -21,7 +21,7 @@
         <ul>
             {{#each questions}}
             <li data-id="{{this.id}}"> <!-- Thêm data-id để lấy ID câu hỏi -->
-                <p>{{this.text}}</p>
+                 <a href="/questions/{{this.id}}/update" class="text-reset"><p class="text-primary"><p>{{this.text}}</p></p></a>
                 <div>
                     <button type="button" class="delete-btn">Delete</button>
                 </div>

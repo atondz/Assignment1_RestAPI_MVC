@@ -54,22 +54,62 @@ exports.createQuestion = async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 };
+// [GET /questions]
 // PUT: Cập nhật câu hỏi
+// exports.updateQuestion = async (req, res) => {
+//   const { questionId } = req.params;
+//   const updates = req.body;
+
+//   try {
+//     const updatedQuestion = await Question.findByIdAndUpdate(
+//       questionId,
+//       updates,
+//       { new: true }
+//     );
+//     if (!updatedQuestion)
+//       return res.status(404).json({ message: "Question not found" });
+//     res.json(updatedQuestion);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
+exports.getQuestionById = async (req, res) => {
+  const { questionId } = req.params;
+  try {
+      const question = await Question.findById(questionId);
+      if (!question) return res.status(404).json({ message: 'Question not found' });
+
+      // Sao chép dữ liệu question sang đối tượng mới
+      const questionData = {
+          _id: question._id,
+          text: question.text,
+          options: question.options.join(', '), // Chuyển thành chuỗi
+          correctAnswerIndex: question.correctAnswerIndex
+      };
+
+      res.render('updateQuestion', { questionData });
+  } catch (err) {
+      res.status(500).json({ message: err.message });
+  }
+};
+
+
 exports.updateQuestion = async (req, res) => {
   const { questionId } = req.params;
-  const updates = req.body;
+  const { text, options, correctAnswerIndex } = req.body;
 
   try {
-    const updatedQuestion = await Question.findByIdAndUpdate(
-      questionId,
-      updates,
-      { new: true }
-    );
-    if (!updatedQuestion)
-      return res.status(404).json({ message: "Question not found" });
-    res.json(updatedQuestion);
+      const question = await Question.findByIdAndUpdate(
+          questionId,
+          { text, options: options.split(',').map(opt => opt.trim()), correctAnswerIndex },
+          { new: true }
+      );
+
+      if (!question) return res.status(404).json({ message: 'Question not found' });
+
+      res.json({ message: 'Question updated successfully', question });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err.message });
   }
 };
 
