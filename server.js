@@ -41,7 +41,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // Routes
 app.get('/', (req, res) => {
-  res.render('home'); // Render trang home
+  res.render('Home'); // Render trang home
 });
 app.use("/quizzes", quizRoutes);
 app.use("/questions", questionRoutes);

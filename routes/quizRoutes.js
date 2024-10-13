@@ -17,7 +17,7 @@ router.delete("/:quizId", quizController.deleteQuiz);
 
 //UI
 router.get("/:quizId/update", quizController.UpdateQuizzUI);  
-router.get("/new", quizController.createNewQuizzUI);    
+router.get("/new", quizController.createNewQuizzUI);        
 
 // API
 router.post("/:quizId/question", questionController.createQuestionForQuiz);
