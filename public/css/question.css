@@ -29,7 +29,9 @@ h1 {
     color: #4CAF50; /* Màu xanh lá cây */
     text-align: center;
 }
-
+p {
+    color: blue;
+}
 
 /* Kiểu cho danh sách quizzes */
 ul {
