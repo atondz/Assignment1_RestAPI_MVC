@@ -15,7 +15,7 @@
 </div>
        
        <button type="button" class="btn btn-success">
-        <a href="/quizzes/new">Create new quizzes</a>
+        <a href="/quizzes/new"  >Create new quizzes</a>
       </button>
       {{#if message}}
         <div class="alert">{{message}}</div>
@@ -24,8 +24,8 @@
         {{#each quizzes}}
           <li data-id="{{this._id}}">
             <div>
-              <a href="/quizzes/change"><h3>{{this.title}}</h3></a>
-              <p>{{this.description}}</p>
+              <a href="/quizzes/{{this._id}}/update" class="text-reset"><p class="text-primary">{{this.title}}</p></a>
+              <h5>{{this.description}}</h5>
             </div>
             <button type="button" class="delete-btn">Delete</button>
           </li>

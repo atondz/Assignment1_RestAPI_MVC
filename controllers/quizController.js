@@ -55,21 +55,25 @@ exports.createQuiz = async (req, res) => {
 // PUT: Cập nhật quiz
 
 exports.updateQuiz = async (req, res) => {
-  const { quizId } = req.params;
-  const updates = req.body;
+  const { quizId } = req.params;  // Lấy quizId từ URL
+  const updates = req.body;  // Dữ liệu cập nhật từ client (form)
 
+  console.log("Cập nhật quiz với id: " + quizId);
+  
   try {
     const updatedQuiz = await Quiz.findByIdAndUpdate(quizId, updates, {
-      new: true,
+      new: true,  // Tùy chọn này trả về quiz sau khi đã được cập nhật
     });
     
     if (!updatedQuiz)
-      return res.status(404).json({ message: "Quiz not found" });
-    res.json(updatedQuiz);
+      return res.status(404).json({ message: "Quiz not found" });  // Quiz không tồn tại
+
+    res.json(updatedQuiz);  // Trả về quiz đã cập nhật
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err.message });  // Xử lý lỗi
   }
 };
+
 // DELETE: Xóa quiz
 exports.deleteQuiz = async (req, res) => {
   const { quizId } = req.params;
